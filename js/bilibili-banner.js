@@ -1,1 +1,41 @@
-"use strict";function _slicedToArray(e,r){return _arrayWithHoles(e)||_iterableToArrayLimit(e,r)||_unsupportedIterableToArray(e,r)||_nonIterableRest()}function _nonIterableRest(){throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}function _iterableToArrayLimit(e,r){var t=null==e?null:"undefined"!=typeof Symbol&&e[Symbol.iterator]||e["@@iterator"];if(null!=t){var n,a,o=[],i=!0,u=!1;try{for(t=t.call(e);!(i=(n=t.next()).done)&&(o.push(n.value),!r||o.length!==r);i=!0);}catch(e){u=!0,a=e}finally{try{i||null==t.return||t.return()}finally{if(u)throw a}}return o}}function _arrayWithHoles(e){if(Array.isArray(e))return e}function _createForOfIteratorHelper(e,r){var t,n="undefined"!=typeof Symbol&&e[Symbol.iterator]||e["@@iterator"];if(!n){if(Array.isArray(e)||(n=_unsupportedIterableToArray(e))||r&&e&&"number"==typeof e.length)return n&&(e=n),t=0,{s:r=function(){},n:function(){return t>=e.length?{done:!0}:{done:!1,value:e[t++]}},e:function(e){throw e},f:r};throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}var a,o=!0,i=!1;return{s:function(){n=n.call(e)},n:function(){var e=n.next();return o=e.done,e},e:function(e){i=!0,a=e},f:function(){try{o||null==n.return||n.return()}finally{if(i)throw a}}}}function _unsupportedIterableToArray(e,r){if(e){if("string"==typeof e)return _arrayLikeToArray(e,r);var t=Object.prototype.toString.call(e).slice(8,-1);return"Map"===(t="Object"===t&&e.constructor?e.constructor.name:t)||"Set"===t?Array.from(e):"Arguments"===t||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t)?_arrayLikeToArray(e,r):void 0}}function _arrayLikeToArray(e,r){(null==r||r>e.length)&&(r=e.length);for(var t=0,n=new Array(r);t<r;t++)n[t]=e[t];return n}var images,startingPoint,autumnBanner=document.querySelector("#autumnBanner"),winterBanner=(autumnBanner&&(images=document.querySelectorAll("#autumnBanner > div > img"),autumnBanner.addEventListener("mousemove",function(e){var r,t=e.clientX/window.outerWidth,n=10*t,a=_createForOfIteratorHelper(images.entries());try{for(a.s();!(r=a.n()).done;){var o=_slicedToArray(r.value,2),i=o[0],u=o[1],l=(n*=1.3,20*Math.pow(i/images.length-t,2));u.style.setProperty("--offset","".concat(n,"px")),u.style.setProperty("--blur","".concat(l,"px"))}}catch(e){a.e(e)}finally{a.f()}})),document.querySelector("#winterBanner"));winterBanner&&(winterBanner.addEventListener("mouseenter",function(e){startingPoint=e.clientX,winterBanner.classList.add("moving")}),winterBanner.addEventListener("mouseout",function(e){winterBanner.classList.remove("moving"),winterBanner.style.setProperty("--percentage",.5)}),winterBanner.addEventListener("mousemove",function(e){e=(e.clientX-startingPoint)/window.outerWidth+.5;winterBanner.style.setProperty("--percentage",e)}));
+//autumn_banner
+
+var autumnBanner = document.querySelector('#autumnBanner')
+if (autumnBanner) {
+  var images = document.querySelectorAll('#autumnBanner > div > img')
+  autumnBanner.addEventListener('mousemove', (e) => {
+    let percentage = e.clientX / window.outerWidth
+    let offset = 10 * percentage
+    let blur = 20
+
+    for (let [index, image] of images.entries()) {
+      offset *= 1.3
+
+      let blurValue = (Math.pow((index / images.length - percentage), 2) * blur)
+
+      image.style.setProperty('--offset', `${offset}px`)
+      image.style.setProperty('--blur', `${blurValue}px`)
+    }
+  })
+}
+//winter_banner
+
+var winterBanner = document.querySelector('#winterBanner')
+if (winterBanner) {
+  var startingPoint
+  winterBanner.addEventListener('mouseenter', (e) => {
+    startingPoint = e.clientX
+    winterBanner.classList.add('moving')
+  })
+
+  winterBanner.addEventListener('mouseout', (e) => {
+    winterBanner.classList.remove('moving')
+    winterBanner.style.setProperty('--percentage', 0.5)
+  })
+
+  winterBanner.addEventListener('mousemove', (e) => {
+    let percentage = (e.clientX - startingPoint) / window.outerWidth + 0.5
+
+    winterBanner.style.setProperty('--percentage', percentage)
+  })
+}
